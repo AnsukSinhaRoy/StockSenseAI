@@ -1,28 +1,21 @@
-from src.data_loader.ohlcv_loader import load_ohlcv_data, plot_close_price, resample_to_daily, resample_to_weekly, resample_to_hourly, generate_candlestick_data, plot_candlestick
+from src.data_loader.ohlcv_loader import load, plot_close_price
+from src.data_loader.resample import resample_to_daily, resample_to_weekly, resample_to_hourly
+from src.heikin_ashi import heikin_ashi_multiple, heikin_ashi
+from src.data_loader.candle_stick import pltCandleStick
 
-from src.heikin_ashi import heikin_ashi
-df = load_ohlcv_data("data/raw/NTPC_minute.csv")
-#df = df[:10000]
+from src.tokenizer.hybrid_tokenizer import hybrid_tokenize, plot_return_token_distribution
 
-#plot_close_price(df)
+df = load("data/raw/NTPC_minute.csv")
 
-
-#df = resample_to_hourly(df)
-#plot_close_price(df)
 df = resample_to_daily(df)
-#plot_candlestick(generate_candlestick_data(df))
-#plot_close_price(df)
-#plot_candlestick(generate_candlestick_data(df))
-#df = resample_to_weekly(df)
-#plot_close_price(df)
-#plot_candlestick(generate_candlestick_data(df))
 
-df = heikin_ashi(df)
-df = heikin_ashi(df)
-df = heikin_ashi(df)
-df = heikin_ashi(df)
-df = heikin_ashi(df)
-df = heikin_ashi(df)
+#pltCandleStick(df)
 
+df = heikin_ashi_multiple(df, 6)
 
-plot_candlestick(generate_candlestick_data(df))
+#pltCandleStick(df)
+
+print("Hybrid Tokenization...")
+
+df = hybrid_tokenize(df)
+plot_return_token_distribution(df)

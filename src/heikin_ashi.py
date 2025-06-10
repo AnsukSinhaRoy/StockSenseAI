@@ -30,3 +30,11 @@ def heikin_ashi(df):
         ha_df['volume'] = df['volume']
     
     return ha_df
+
+def heikin_ashi_multiple(df, n=1):
+    print(f"Calculating Heikin-Ashi values {n} times...")
+    
+    for _ in range(n):
+        df = heikin_ashi(df)
+    
+    return df
