@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-def compute_return_token(df, bins=[-0.03, -0.02, -0.01, 0, 0.01, 0.02, 0.03]):
+def compute_return_token(df, bins=[-0.04, -0.03, -0.02, -0.01, 0, 0.01, 0.02, 0.03, 0.04]):
     """
     Create discrete tokens based on % return in ha_close.
     """
@@ -11,6 +11,14 @@ def compute_return_token(df, bins=[-0.03, -0.02, -0.01, 0, 0.01, 0.02, 0.03]):
     df['return_token'] = pd.cut(df['pct_change'], 
                                 bins=[-np.inf] + bins + [np.inf],
                                 labels=False)
+    return df
+
+def compute_pct_change(df, bins=[-0.04, -0.03, -0.02, -0.01, 0, 0.01, 0.02, 0.03, 0.04]):
+    """
+    Create discrete tokens based on % return in ha_close.
+    """
+    df = df.copy()
+    df['pct_change'] = df['close'].pct_change().fillna(0)
     return df
 
 def compute_shape_ratio(df):
